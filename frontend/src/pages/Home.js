@@ -5,7 +5,6 @@ import "../styles/Home.css";
 const Home = () => {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
-  const [activeFeature, setActiveFeature] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {

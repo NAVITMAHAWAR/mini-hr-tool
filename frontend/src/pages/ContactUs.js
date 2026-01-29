@@ -296,13 +296,13 @@ const ContactUs = () => {
             <h4>Social</h4>
             <ul>
               <li>
-                <a href="#">Twitter</a>
+                <button>Twitter</button>
               </li>
               <li>
-                <a href="#">LinkedIn</a>
+                <button>LinkedIn</button>
               </li>
               <li>
-                <a href="#">Facebook</a>
+                <button>Facebook</button>
               </li>
             </ul>
           </div>

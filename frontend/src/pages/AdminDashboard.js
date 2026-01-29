@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const AdminDashboard = () => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [user] = useState(JSON.parse(localStorage.getItem("user")));
   const [allLeaves, setAllLeaves] = useState([]);
   const [allAttendance, setAllAttendance] = useState([]);
   const navigate = useNavigate();

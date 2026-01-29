@@ -252,13 +252,13 @@ const Signup = () => {
                 <input type="checkbox" className="checkbox-input" required />
                 <span>
                   I agree to the{" "}
-                  <a href="#" className="terms-link">
+                  <button type="button" className="terms-link">
                     Terms of Service
-                  </a>{" "}
+                  </button>{" "}
                   and{" "}
-                  <a href="#" className="terms-link">
+                  <button type="button" className="terms-link">
                     Privacy Policy
-                  </a>
+                  </button>
                 </span>
               </label>
 

@@ -5,11 +5,11 @@ import "../styles/About.css";
 const About = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("mission");
-  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    // Scroll listener for any future use
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      // Scroll event listener
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -308,15 +308,15 @@ const About = () => {
                 <p className="team-role">{member.role}</p>
                 <p className="team-bio">{member.bio}</p>
                 <div className="team-socials">
-                  <a href="#" className="social-link">
+                  <button className="social-link" title="LinkedIn">
                     in
-                  </a>
-                  <a href="#" className="social-link">
+                  </button>
+                  <button className="social-link" title="Twitter">
                     tw
-                  </a>
-                  <a href="#" className="social-link">
+                  </button>
+                  <button className="social-link" title="Email">
                     em
-                  </a>
+                  </button>
                 </div>
               </div>
             ))}
