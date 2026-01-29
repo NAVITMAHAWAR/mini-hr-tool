@@ -1,0 +1,436 @@
+/* ============================================================================
+   DOCUMENTATION PAGE STYLES
+   ============================================================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.documentation-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  color: white;
+  font-family: "Inter", "Segoe UI", "Roboto", sans-serif;
+}
+
+/* Hero Section */
+.doc-hero {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.doc-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.doc-hero h1 {
+  font-size: 48px;
+  font-weight: 900;
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.doc-hero p {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 30px;
+}
+
+.doc-search {
+  display: flex;
+  gap: 10px;
+  max-width: 500px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.doc-search input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 16px;
+  padding: 8px 12px;
+}
+
+.doc-search input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.doc-search button {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border: none;
+  color: white;
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.doc-search button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+/* Documentation Content */
+.documentation-content {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+/* Sidebar */
+.doc-sidebar {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.doc-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: sticky;
+  top: 20px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(99, 102, 241, 0.3);
+  color: white;
+}
+
+.nav-item.active {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.nav-icon {
+  font-size: 20px;
+}
+
+/* Main Content */
+.doc-main {
+  animation: slideInRight 0.8s ease-out;
+}
+
+.section-header {
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-header h2 {
+  font-size: 36px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 0;
+}
+
+.section-icon {
+  font-size: 42px;
+}
+
+.doc-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.doc-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.doc-item:hover {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.doc-item-header {
+  width: 100%;
+  padding: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+
+.doc-item-header:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.expand-icon {
+  color: #6366f1;
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.doc-item-body {
+  padding: 0 20px 20px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.doc-item-body p {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* Help Section */
+.doc-help {
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.doc-help h2 {
+  font-size: 36px;
+  font-weight: 900;
+  margin-bottom: 50px;
+  color: white;
+}
+
+.help-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.help-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 40px 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  animation: fadeInUp 0.8s ease-out backwards;
+}
+
+.help-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.help-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.help-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.help-card:hover {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateY(-8px);
+}
+
+.help-icon {
+  font-size: 50px;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+.help-card h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: white;
+}
+
+.help-card p {
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.help-card button {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.help-card button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .documentation-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 40px 20px;
+  }
+
+  .doc-sidebar {
+    display: none;
+  }
+
+  .doc-hero h1 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .doc-hero {
+    padding: 40px 20px;
+  }
+
+  .doc-hero h1 {
+    font-size: 28px;
+  }
+
+  .doc-hero p {
+    font-size: 16px;
+  }
+
+  .section-header h2 {
+    font-size: 24px;
+  }
+
+  .section-icon {
+    font-size: 28px;
+  }
+
+  .doc-item-header {
+    padding: 16px;
+    font-size: 14px;
+  }
+
+  .help-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .help-card {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .doc-hero {
+    padding: 30px 15px;
+  }
+
+  .doc-hero h1 {
+    font-size: 24px;
+  }
+
+  .doc-hero p {
+    font-size: 14px;
+  }
+
+  .doc-search {
+    flex-direction: column;
+  }
+
+  .doc-search button {
+    width: 100%;
+  }
+
+  .documentation-content {
+    padding: 30px 15px;
+  }
+
+  .section-header h2 {
+    font-size: 20px;
+  }
+
+  .doc-item-header {
+    padding: 14px;
+    font-size: 13px;
+  }
+
+  .help-icon {
+    font-size: 40px;
+  }
+
+  .help-card h3 {
+    font-size: 18px;
+  }
+}
