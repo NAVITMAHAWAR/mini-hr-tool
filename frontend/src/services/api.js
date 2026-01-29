@@ -1,14 +1,14 @@
 import axios from "axios";
 
 // Determine API base URL based on environment
-const apiBaseURL = 
+const apiBaseURL =
   process.env.NODE_ENV === "production"
-    ? "https://mini-hr-tool-backend.onrender.com"  // Production backend
-    : "http://localhost:5000";  // Development backend
+    ? "https://mini-hr-tool-s3i6.onrender.com" // Production backend
+    : "http://localhost:5000"; // Development backend
 
 const api = axios.create({
   baseURL: apiBaseURL,
-  withCredentials: true,  // Allow cookies for authentication
+  withCredentials: true, // Allow cookies for authentication
 });
 
 // Add request interceptor for token
@@ -20,7 +20,7 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 export default api;
