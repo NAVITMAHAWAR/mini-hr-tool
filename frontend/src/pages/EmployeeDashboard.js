@@ -67,7 +67,7 @@ const EmployeeDashboard = () => {
     (async () => {
       await fetchData();
     })();
-  }, [navigate, user]);
+  }, [navigate]);
 
   const applyLeave = () => {
     setIsModalOpen(true); // Open the modal
