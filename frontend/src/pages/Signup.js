@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import api from "../services/api";
 import "../styles/Auth.css";
 
 const Signup = () => {
@@ -50,7 +50,7 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      await api.post("/users/register", {
+      await axios.post("http://localhost:5000/api/users/register", {
         name,
         email,
         password,

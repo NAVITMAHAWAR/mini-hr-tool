@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { toast } from "sonner";
-import { useForm } from "react-hook-form";
-import api from "../services/api"; // Import api service
+import { useForm } from "react-hook-form"; // Add this import for form handling
 
 const EmployeeDashboard = () => {
   const [user, setUser] = useState(
@@ -13,7 +13,7 @@ const EmployeeDashboard = () => {
   const [attendance, setAttendance] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const navigate = useNavigate();
 
   const {
@@ -21,7 +21,7 @@ const EmployeeDashboard = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm(); // React Hook Form setup
 
   useEffect(() => {
     if (!user || user.role !== "employee") {
@@ -29,7 +29,6 @@ const EmployeeDashboard = () => {
       navigate("/login");
       return;
     }
-
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -37,8 +36,12 @@ const EmployeeDashboard = () => {
         if (!token) throw new Error("No token found");
 
         const [leaveRes, attRes] = await Promise.all([
-          api.get("/leaves/my-leaves"),
-          api.get("/attendance/my-attendance"),
+          axios.get("http://localhost:5000/api/leaves/my-leaves", {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          axios.get("http://localhost:5000/api/attendance/my-attendance", {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
         ]);
 
         setLeaves(leaveRes.data || []);
@@ -47,9 +50,9 @@ const EmployeeDashboard = () => {
         const approvedLeaves = leaveRes.data.filter(
           (leave) => leave.status === "Approved",
         ).length;
-        const totalQuota = 20;
+        const totalQuota = 20; // Ya backend se lo
         const leaveBalance = totalQuota - approvedLeaves;
-        setUser((prev) => ({ ...prev, leaveBalance }));
+        setUser((prev) => ({ ...prev, leaveBalance })); // User state update karo
       } catch (err) {
         toast.error(err.message || "Failed to load data");
         console.log(err);
@@ -60,7 +63,11 @@ const EmployeeDashboard = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array - fetch only on mount
+    // Expose fetchData for other handlers
+    (async () => {
+      await fetchData();
+    })();
+  }, [navigate, user]);
 
   const applyLeave = () => {
     setIsModalOpen(true); // Open the modal
@@ -80,7 +87,12 @@ const EmployeeDashboard = () => {
     };
 
     try {
-      const response = await api.post("/leaves/apply", formattedData);
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        "http://localhost:5000/api/leaves/apply",
+        formattedData, // formattedData use karo
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
       toast.success("Leave applied successfully!");
       setIsModalOpen(false);
       reset();
@@ -93,10 +105,20 @@ const EmployeeDashboard = () => {
 
   const markAttendance = async () => {
     try {
-      const res = await api.post("/attendance/mark", { status: "Present" });
+      const token = localStorage.getItem("token");
+      const res = await axios.post(
+        "http://localhost:5000/api/attendance/mark",
+        { status: "Present" },
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
       toast.success(res.data?.message || "Attendance marked successfully!");
       // refresh attendance list
-      const attRes = await api.get("/attendance/my-attendance");
+      const attRes = await axios.get(
+        "http://localhost:5000/api/attendance/my-attendance",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
       setAttendance(attRes.data || []);
     } catch (err) {
       const msg =
