@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import api from "../services/api";
 
 const AdminDashboard = () => {
   const [user] = useState(JSON.parse(localStorage.getItem("user")));
@@ -16,24 +16,13 @@ const AdminDashboard = () => {
       return;
     }
     const fetchData = async () => {
-      const token = localStorage.getItem("token");
       try {
-        // सभी leaves fetch करें (admin only)
-        // Use admin endpoint to get all leaves
-        const leaveRes = await axios.get(
-          "http://localhost:5000/api/leaves/all",
-          { headers: { Authorization: `Bearer ${token}` } },
-        );
+        const leaveRes = await api.get("/leaves/all");
         console.log("leaveres: ", leaveRes.data);
         setAllLeaves(leaveRes.data);
 
-        // सभी attendance fetch करें
-        const attRes = await axios.get(
-          "http://localhost:5000/api/attendance/all-attendance",
-          { headers: { Authorization: `Bearer ${token}` } },
-        );
+        const attRes = await api.get("/attendance/all-attendance");
         console.log("attres: ", attRes.data);
-
         setAllAttendance(attRes.data);
       } catch (error) {
         toast.error("Data fetch failed. Admin access check करें।");
@@ -66,13 +55,8 @@ const AdminDashboard = () => {
   };
 
   const handleApproveReject = async (leaveId, status) => {
-    const token = localStorage.getItem("token");
     try {
-      await axios.put(
-        `http://localhost:5000/api/leaves/approve/${leaveId}`,
-        { status },
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
+      await api.put(`/leaves/approve/${leaveId}`, { status });
       toast.success(`Leave ${status} successfully!`);
       // Refresh data
       window.location.reload();

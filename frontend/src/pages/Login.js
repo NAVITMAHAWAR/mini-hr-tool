@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import api from "../services/api";
 import "../styles/Auth.css";
 
 const Login = () => {
@@ -14,7 +14,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Load saved email if remember me was checked
     const savedEmail = localStorage.getItem("rememberEmail");
     if (savedEmail) {
       setEmail(savedEmail);
@@ -28,7 +27,7 @@ const Login = () => {
     setErrorMsg("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/users/login", {
+      const res = await api.post("/users/login", {
         email,
         password,
       });
