@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form"; // Add this import for form handling
 
 const EmployeeDashboard = () => {
   const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user") || "{}")
+    JSON.parse(localStorage.getItem("user") || "{}"),
   );
 
   const [leaves, setLeaves] = useState([]);
@@ -48,7 +48,7 @@ const EmployeeDashboard = () => {
         setAttendance(attRes.data || []);
 
         const approvedLeaves = leaveRes.data.filter(
-          (leave) => leave.status === "Approved"
+          (leave) => leave.status === "Approved",
         ).length;
         const totalQuota = 20; // Ya backend se lo
         const leaveBalance = totalQuota - approvedLeaves;
@@ -91,7 +91,7 @@ const EmployeeDashboard = () => {
       const response = await axios.post(
         "http://localhost:5000/api/leaves/apply",
         formattedData, // formattedData use karo
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       toast.success("Leave applied successfully!");
       setIsModalOpen(false);
@@ -109,7 +109,7 @@ const EmployeeDashboard = () => {
       const res = await axios.post(
         "http://localhost:5000/api/attendance/mark",
         { status: "Present" },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       toast.success(res.data?.message || "Attendance marked successfully!");
       // refresh attendance list
@@ -117,7 +117,7 @@ const EmployeeDashboard = () => {
         "http://localhost:5000/api/attendance/my-attendance",
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       setAttendance(attRes.data || []);
     } catch (err) {
@@ -128,7 +128,7 @@ const EmployeeDashboard = () => {
       toast.error(msg);
       console.error(
         "markAttendance error:",
-        err.response?.data || err.message || err
+        err.response?.data || err.message || err,
       );
     }
   };
@@ -249,8 +249,8 @@ const EmployeeDashboard = () => {
                       leave.status === "Approved"
                         ? "border-green-500 bg-green-50"
                         : leave.status === "Rejected"
-                        ? "border-red-500 bg-red-50"
-                        : "border-yellow-500 bg-yellow-50"
+                          ? "border-red-500 bg-red-50"
+                          : "border-yellow-500 bg-yellow-50"
                     }`}
                   >
                     <div className="flex justify-between items-start">
@@ -268,8 +268,8 @@ const EmployeeDashboard = () => {
                           leave.status === "Approved"
                             ? "bg-green-100 text-green-800"
                             : leave.status === "Rejected"
-                            ? "bg-red-100 text-red-800"
-                            : "bg-yellow-100 text-yellow-800"
+                              ? "bg-red-100 text-red-800"
+                              : "bg-yellow-100 text-yellow-800"
                         }`}
                       >
                         {leave.status}

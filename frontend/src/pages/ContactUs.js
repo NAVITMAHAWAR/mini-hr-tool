@@ -119,9 +119,9 @@ const ContactUs = () => {
               <div className="info-icon">📍</div>
               <h3>Visit Us</h3>
               <p>123 Business Ave, Tech City, TC 12345</p>
-              <a href="#" className="info-link">
+              <button className="info-link">
                 Get Directions →
-              </a>
+              </button>
             </div>
 
             <div className="info-card">

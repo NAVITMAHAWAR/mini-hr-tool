@@ -22,7 +22,7 @@ const AdminDashboard = () => {
         // Use admin endpoint to get all leaves
         const leaveRes = await axios.get(
           "http://localhost:5000/api/leaves/all",
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         console.log("leaveres: ", leaveRes.data);
         setAllLeaves(leaveRes.data);
@@ -30,7 +30,7 @@ const AdminDashboard = () => {
         // सभी attendance fetch करें
         const attRes = await axios.get(
           "http://localhost:5000/api/attendance/all-attendance",
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         console.log("attres: ", attRes.data);
 
@@ -71,7 +71,7 @@ const AdminDashboard = () => {
       await axios.put(
         `http://localhost:5000/api/leaves/approve/${leaveId}`,
         { status },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       toast.success(`Leave ${status} successfully!`);
       // Refresh data

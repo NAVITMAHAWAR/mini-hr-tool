@@ -167,7 +167,6 @@ const Home = () => {
             <div
               key={feature.id}
               className="feature-card"
-              onMouseEnter={() => setActiveFeature(index)}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="feature-icon">{feature.icon}</div>
@@ -352,9 +351,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
-
-
-
-
