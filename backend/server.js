@@ -2,48 +2,54 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const bcrypt = require("bcryptjs");
 
 const app = express();
 
-// CORS configuration
-const corsOptions = {
-  origin: [
-    "https://mini-hr-tool-phi.vercel.app",
-    "http://localhost:3000",
-    "http://localhost:5000"
-  ],
+app.use(cors({
+  origin: "*",
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-};
-
-app.use(cors(corsOptions));
+}));
 app.use(express.json());
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected ❤️"))
-  .catch((err) => console.log(err));
-
+// Models ko yahan require karo
 const User = require("./models/User");
-const bcrypt = require("bcryptjs");
+
+// Seed function
 const seedAdmin = async () => {
-  const adminExists = await User.findOne({ email: "admin@example.com" });
-  if (!adminExists) {
-    const hashedPassword = await bcrypt.hash("admin123", 10);
-    const admin = new User({
-      name: "Admin",
-      email: "admin@example.com",
-      password: hashedPassword,
-      role: "admin",
-      dateOfJoining: new Date(),
-    });
-    await admin.save();
-    console.log("Admin seeded");
+  try {
+    const adminExists = await User.findOne({ email: "admin@example.com" });
+    if (!adminExists) {
+      const hashedPassword = await bcrypt.hash("admin123", 10);
+      const admin = new User({
+        name: "Admin",
+        email: "admin@example.com",
+        password: hashedPassword,
+        role: "admin",
+        dateOfJoining: new Date(),
+      });
+      await admin.save();
+      console.log("Admin seeded ✅");
+    } else {
+      console.log("Admin already exists");
+    }
+  } catch (err) {
+    console.log("Seed error:", err.message);
   }
 };
-seedAdmin();
 
+// MongoDB Connect + Seed
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("MongoDB connected ❤️");
+    seedAdmin();                 // ← Ab yahan call karo
+  })
+  .catch((err) => {
+    console.log("MongoDB connection error ❌:", err.message);
+  });
+
+// Routes
 app.get("/", (req, res) => {
   res.send("Mini HR Backend is running 🚀");
 });
